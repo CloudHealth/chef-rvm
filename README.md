@@ -1,4 +1,5 @@
-# <a name="title"></a> chef-rvm [![Build Status](https://secure.travis-ci.org/fnichol/chef-rvm.png?branch=master)](http://travis-ci.org/fnichol/chef-rvm)
+This is a fork of a now abandoned chef-rvm cookbook. The fork was created to
+apply fixes to the now deprecated code.
 
 ## <a name="description"></a> Description
 

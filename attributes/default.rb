@@ -67,7 +67,13 @@ when "redhat","centos","fedora","scientific","amazon"
   node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git}
   default['rvm']['user_home_root']  = '/home'
 when "debian","ubuntu","suse"
-  node.set['rvm']['install_pkgs']   = %w{sed grep tar gzip bzip2 bash curl git-core}
+  packages = %w{sed grep tar gzip bzip2 bash curl}
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 18.04 then
+    packages += %w{git}
+  else
+    packages += %w{git-core}
+  end
+  node.set['rvm']['install_pkgs']   = packages
   default['rvm']['user_home_root']  = '/home'
 when "gentoo"
   node.set['rvm']['install_pkgs']   = %w{git}
