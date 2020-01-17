@@ -145,17 +145,19 @@ class Chef
             name = @new_resource.source
           end
 
-          cmd = %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
-          cmd << %{ install #{name} -q --no-document -v "#{version}"}
-          cmd << %{#{src}#{opts}}
-
           if gem_env.user
             user_dir    = Etc.getpwnam(gem_env.user).dir
             environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
+            cmd = "sudo chown -R #{gem_env.user}:#{gem_env.user} #{Etc.getpwnam(gem_env.user).dir}"
           else
+            cmd = ''
             user_dir    = nil
             environment = nil
           end
+
+          cmd << %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
+          cmd << %{ install #{name} -q --no-document -v "#{version}"}
+          cmd << %{#{src}#{opts}}
 
           shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
         end
