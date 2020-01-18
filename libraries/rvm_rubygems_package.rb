@@ -149,17 +149,17 @@ class Chef
             user_dir    = Etc.getpwnam(gem_env.user).dir
             environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
             cmd = %{sudo su - #{gem_env.user} -c "}
-            end = %{#{src}#{opts}"}
+            ending = %{#{src}#{opts}"}
           else
             cmd = ''
-            end = %{#{src}#{opts}}
+            ending = %{#{src}#{opts}}
             user_dir    = nil
             environment = nil
           end
 
           cmd << %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
           cmd << %{ install #{name} -f -q --no-document -v "#{version}"}
-          cmd << end
+          cmd << ending
 	
           shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
         end
