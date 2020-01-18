@@ -157,7 +157,7 @@ class Chef
           end
 
           cmd << %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
-          cmd << %{ install #{name} -q --no-document -v "#{version}"}
+          cmd << %{ install #{name} -f -q --no-document -v "#{version}"}
           cmd << %{#{src}#{opts}"}
 
           shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
