@@ -196,7 +196,6 @@ class Chef
           end
         end
 
-        Chef::Log.info("Installing #{opts[:gems]} for #{opts[:user]}")
         # install additional gems
         opts[:gems].each_pair do |rstring, gems|
           rvm_environment rstring do
