@@ -152,7 +152,7 @@ class Chef
             end = %{#{src}#{opts}"}
           else
             cmd = ''
-	    end = %{#{src}#{opts}}
+            end = %{#{src}#{opts}}
             user_dir    = nil
             environment = nil
           end
