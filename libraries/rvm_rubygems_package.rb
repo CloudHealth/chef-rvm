@@ -148,7 +148,8 @@ class Chef
           if gem_env.user
             user_dir    = Etc.getpwnam(gem_env.user).dir
             environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
-            cmd = "sudo chown -R #{gem_env.user} #{Etc.getpwnam(gem_env.user).dir} && "
+            #cmd = "sudo chown -R #{gem_env.user}:root #{Etc.getpwnam(gem_env.user).dir}/.rvm && sudo chmod -R 774 #{Etc.getpwnam(gem_env.user).dir}/.rvm && "
+            cmd = %{sudo su - #{gem_env.user} -c "}
           else
             cmd = ''
             user_dir    = nil
@@ -157,7 +158,7 @@ class Chef
 
           cmd << %{rvm #{ruby_strings.join(',')} #{rvm_do(gem_env.user)} #{gem_binary_path}}
           cmd << %{ install #{name} -q --no-document -v "#{version}"}
-          cmd << %{#{src}#{opts}}
+          cmd << %{#{src}#{opts}"}
 
           shell_out!(rvm_wrap_cmd(cmd, user_dir), :env => environment)
         end
