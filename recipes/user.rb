@@ -34,6 +34,7 @@ Array(node['rvm']['user_installs']).each do |rvm_user|
                             node['rvm']['user_gems']
 
   if perform_install_rubies
+    Chef::Log.info("Installing #{global_gems} for #{rvm_user}")
     install_rubies  :rubies => rubies,
                     :default_ruby => default_ruby,
                     :global_gems => global_gems,
