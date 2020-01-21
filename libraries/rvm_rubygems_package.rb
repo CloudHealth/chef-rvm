@@ -148,7 +148,7 @@ class Chef
           if gem_env.user
             user_dir    = Etc.getpwnam(gem_env.user).dir
             environment = { 'USER' => gem_env.user, 'HOME' => user_dir }
-            cmd = %{sudo su - #{gem_env.user} -c "}
+            cmd = %{sudo chown -R #{gem_env.user}:#{gem_env.user} #{user_dir}/.rvm && sudo su - #{gem_env.user} -c "}
             ending = %{#{src}#{opts}"}
           else
             cmd = ''
