@@ -138,6 +138,8 @@ def install_ruby_dependencies(rubie)
           pkgs += %w{ libssl-dev libreadline6-dev libreadline6 }
         elsif node['platform_version'] == '18.04'
           pkgs += %w{ libssl1.0-dev libreadline7 }
+        elsif node['platform_version'] == '20.04'
+          pkgs += %w{ libssl-dev libssl1.1 libreadline8 libreadline-dev }
         end
       when "suse"
         pkgs = %w{ gcc-c++ patch zlib zlib-devel libffi-devel
